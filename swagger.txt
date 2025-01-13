@@ -1,0 +1,126 @@
+openapi: 3.0.1
+info:
+  title: Welcome Partner Journey API
+  description: This API provides a welcome service for partner journeys.
+  version: 1.0.0
+paths:
+  /eo/eouma/main/api/rest/welcome/{partnerApp}/{channelId}/{locale}/{productIdList}:
+    get:
+      summary: Fetch Partner Journey Details
+      description: Retrieves partner journey information using path and query parameters.
+      parameters:
+        - name: partnerApp
+          in: path
+          required: true
+          description: The partner application name.
+          schema:
+            type: string
+            example: jwn
+        - name: channelId
+          in: path
+          required: true
+          description: The channel ID.
+          schema:
+            type: string
+            example: self_serve
+        - name: locale
+          in: path
+          required: true
+          description: The locale for the request.
+          schema:
+            type: string
+            example: en_US
+        - name: productIdList
+          in: path
+          required: true
+          description: A list of product IDs.
+          schema:
+            type: string
+            example: CC101
+        - name: srcCode
+          in: query
+          required: false
+          description: Source code for the request.
+          schema:
+            type: string
+            example: 888
+        - name: customerId
+          in: query
+          required: false
+          description: Customer ID for the request.
+          schema:
+            type: string
+            example: eee
+        - name: nordEmployeeId
+          in: query
+          required: false
+          description: Nord employee ID for the request.
+          schema:
+            type: string
+            example: NRD61
+      requestBody:
+        description: Request payload containing additional information.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WelcomeRequestBean'
+      responses:
+        '200':
+          description: Successfully retrieved partner journey details.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid input or missing required parameters.
+        '500':
+          description: Internal server error.
+components:
+  schemas:
+    WelcomeRequestBean:
+      type: object
+      properties:
+        channelId:
+          type: string
+          description: The channel ID.
+          example: self_serve
+        locale:
+          type: string
+          description: The locale for the request.
+          example: en_US
+        useStub:
+          type: string
+          description: Whether to use stubs (true/false).
+        referralCode:
+          type: string
+          description: Referral code for the journey.
+        ssoTicketId:
+          type: string
+          description: Single Sign-On ticket ID.
+        externalPartyId:
+          type: string
+          description: External party ID associated with the request.
+        sourceCode:
+          type: string
+          description: Source code for the journey.
+          example: 888
+        journeyId:
+          type: string
+          description: The journey ID.
+        taskId:
+          type: string
+          description: The task ID.
+        profileMaint:
+          type: string
+          description: Profile maintenance flag.
+        partnerApp:
+          type: string
+          description: Partner application name.
+          example: jwn
+        productIdList:
+          type: array
+          description: List of product IDs.
+          items:
+            type: string
+            example: CC101
